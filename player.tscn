@@ -1,0 +1,292 @@
+[gd_scene load_steps=68 format=3 uid="uid://dd62ysjuqqq3i"]
+
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/example/player.gd" id="1_627kw"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/brain.gd" id="2_whi2i"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_child.gd" id="2_x65pr"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/signal_list.gd" id="3_biyte"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/state_picker/state_picker_classes/direct_state_picker.gd" id="3_rqqms"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/brain_state.gd" id="4_7lm1b"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker.gd" id="5_slca2"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_group_array.gd" id="6_wdbqy"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_group.gd" id="7_f4wef"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_array.gd" id="8_esaal"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/input_manager.gd" id="9_qde8j"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/action_emitter/action_emitter_classes/action_emitter.gd" id="10_p7y0c"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/action_emitter/action_emitter_classes/action_emitter_array.gd" id="11_q1law"]
+
+[sub_resource type="Resource" id="Resource_nsdem"]
+script = ExtResource("2_x65pr")
+signal_name = "IsOnFloor"
+
+[sub_resource type="Resource" id="Resource_t0ajs"]
+script = ExtResource("2_x65pr")
+signal_name = "IsFalling"
+
+[sub_resource type="Resource" id="Resource_1hlhj"]
+script = ExtResource("2_x65pr")
+signal_name = "Walk"
+
+[sub_resource type="Resource" id="Resource_lbrco"]
+script = ExtResource("2_x65pr")
+signal_name = "Jump"
+
+[sub_resource type="Resource" id="Resource_2hmya"]
+script = ExtResource("2_x65pr")
+signal_name = "VelocityReset"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b21j0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qkbtx"]
+
+[sub_resource type="Resource" id="Resource_10hpg"]
+script = ExtResource("3_rqqms")
+state_name = "Idle"
+
+[sub_resource type="Resource" id="Resource_psu1o"]
+script = ExtResource("3_biyte")
+signal_list = Array[String](["IdleStart", "WalkStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Space", "Walk", "Jump", "VelocityReset", "IsOnFloor", "IsFalling"])
+
+[sub_resource type="Resource" id="Resource_imtxd"]
+script = ExtResource("5_slca2")
+signal_name = "IdleStart"
+
+[sub_resource type="Resource" id="Resource_6hlmg"]
+script = ExtResource("5_slca2")
+signal_name = "VelocityReset"
+
+[sub_resource type="Resource" id="Resource_y12gs"]
+script = ExtResource("8_esaal")
+signal_pickers = Array[ExtResource("5_slca2")]([SubResource("Resource_6hlmg")])
+
+[sub_resource type="Resource" id="Resource_xx88d"]
+script = ExtResource("5_slca2")
+signal_name = "WASD"
+
+[sub_resource type="Resource" id="Resource_p042y"]
+script = ExtResource("5_slca2")
+signal_name = "WalkStart"
+
+[sub_resource type="Resource" id="Resource_f5do5"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_xx88d")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_p042y")])
+
+[sub_resource type="Resource" id="Resource_sdoel"]
+script = ExtResource("5_slca2")
+signal_name = "Space"
+
+[sub_resource type="Resource" id="Resource_rxwef"]
+script = ExtResource("5_slca2")
+signal_name = "JumpStart"
+
+[sub_resource type="Resource" id="Resource_w13o6"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_sdoel")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_rxwef")])
+
+[sub_resource type="Resource" id="Resource_uv321"]
+script = ExtResource("5_slca2")
+signal_name = "IsFalling"
+
+[sub_resource type="Resource" id="Resource_o7gpr"]
+script = ExtResource("5_slca2")
+signal_name = "FallStart"
+
+[sub_resource type="Resource" id="Resource_vk42e"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_uv321")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_o7gpr")])
+
+[sub_resource type="Resource" id="Resource_gypa8"]
+script = ExtResource("6_wdbqy")
+signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_f5do5"), SubResource("Resource_w13o6"), SubResource("Resource_vk42e")])
+
+[sub_resource type="Resource" id="Resource_jh8mn"]
+script = ExtResource("5_slca2")
+signal_name = "WalkStart"
+
+[sub_resource type="Resource" id="Resource_q437l"]
+script = ExtResource("5_slca2")
+signal_name = "WASD"
+
+[sub_resource type="Resource" id="Resource_j4x5l"]
+script = ExtResource("5_slca2")
+signal_name = "Walk"
+
+[sub_resource type="Resource" id="Resource_tu7ow"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_q437l")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_j4x5l")])
+
+[sub_resource type="Resource" id="Resource_a6kg8"]
+script = ExtResource("5_slca2")
+signal_name = "Space"
+
+[sub_resource type="Resource" id="Resource_53nt4"]
+script = ExtResource("5_slca2")
+signal_name = "JumpStart"
+
+[sub_resource type="Resource" id="Resource_j6ywr"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_a6kg8")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_53nt4")])
+
+[sub_resource type="Resource" id="Resource_b7ero"]
+script = ExtResource("5_slca2")
+signal_name = "WASD_Released"
+
+[sub_resource type="Resource" id="Resource_xqfva"]
+script = ExtResource("5_slca2")
+signal_name = "IdleStart"
+
+[sub_resource type="Resource" id="Resource_ijvjo"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_b7ero")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_xqfva")])
+
+[sub_resource type="Resource" id="Resource_txgqd"]
+script = ExtResource("5_slca2")
+signal_name = "IsFalling"
+
+[sub_resource type="Resource" id="Resource_fwes3"]
+script = ExtResource("5_slca2")
+signal_name = "FallStart"
+
+[sub_resource type="Resource" id="Resource_uabng"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_txgqd")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_fwes3")])
+
+[sub_resource type="Resource" id="Resource_ub0tx"]
+script = ExtResource("6_wdbqy")
+signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_tu7ow"), SubResource("Resource_j6ywr"), SubResource("Resource_ijvjo"), SubResource("Resource_uabng")])
+
+[sub_resource type="Resource" id="Resource_uewgg"]
+script = ExtResource("5_slca2")
+signal_name = "JumpStart"
+
+[sub_resource type="Resource" id="Resource_fcdbm"]
+script = ExtResource("5_slca2")
+signal_name = "Jump"
+
+[sub_resource type="Resource" id="Resource_wpeah"]
+script = ExtResource("8_esaal")
+signal_pickers = Array[ExtResource("5_slca2")]([SubResource("Resource_fcdbm")])
+
+[sub_resource type="Resource" id="Resource_edvea"]
+script = ExtResource("5_slca2")
+signal_name = "IsFalling"
+
+[sub_resource type="Resource" id="Resource_h7wr7"]
+script = ExtResource("5_slca2")
+signal_name = "FallStart"
+
+[sub_resource type="Resource" id="Resource_ncd11"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_edvea")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_h7wr7")])
+
+[sub_resource type="Resource" id="Resource_q32g0"]
+script = ExtResource("6_wdbqy")
+signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_ncd11")])
+
+[sub_resource type="Resource" id="Resource_q2in3"]
+script = ExtResource("5_slca2")
+signal_name = "FallStart"
+
+[sub_resource type="Resource" id="Resource_xtfad"]
+script = ExtResource("5_slca2")
+signal_name = "IsOnFloor"
+
+[sub_resource type="Resource" id="Resource_gst57"]
+script = ExtResource("5_slca2")
+signal_name = "IdleStart"
+
+[sub_resource type="Resource" id="Resource_wx2be"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_xtfad")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_gst57")])
+
+[sub_resource type="Resource" id="Resource_s7s5l"]
+script = ExtResource("6_wdbqy")
+signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_wx2be")])
+
+[sub_resource type="Resource" id="Resource_y8460"]
+script = ExtResource("10_p7y0c")
+signal_name = "WASD"
+action_name = "wasd"
+
+[sub_resource type="Resource" id="Resource_3n648"]
+script = ExtResource("11_q1law")
+action_emitters = Array[ExtResource("10_p7y0c")]([SubResource("Resource_y8460")])
+
+[sub_resource type="Resource" id="Resource_bvm2e"]
+script = ExtResource("10_p7y0c")
+signal_name = "Space"
+action_name = "space"
+
+[sub_resource type="Resource" id="Resource_i5n5h"]
+script = ExtResource("11_q1law")
+action_emitters = Array[ExtResource("10_p7y0c")]([SubResource("Resource_bvm2e")])
+
+[sub_resource type="Resource" id="Resource_ctdyd"]
+script = ExtResource("10_p7y0c")
+signal_name = "WASD_Released"
+action_name = "wasd"
+
+[sub_resource type="Resource" id="Resource_yxcpg"]
+script = ExtResource("11_q1law")
+action_emitters = Array[ExtResource("10_p7y0c")]([SubResource("Resource_ctdyd")])
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_627kw")
+IsOnFloorSignal = SubResource("Resource_nsdem")
+IsFallingSignal = SubResource("Resource_t0ajs")
+WalkSignal = SubResource("Resource_1hlhj")
+JumpSignal = SubResource("Resource_lbrco")
+VelocityResetSignal = SubResource("Resource_2hmya")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_b21j0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_qkbtx")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.978835, 0.20465, 0, -0.20465, 0.978835, 0, 2.29859, 5.96677)
+
+[node name="Brain" type="Node" parent="."]
+script = ExtResource("2_whi2i")
+debug = true
+initial_state = SubResource("Resource_10hpg")
+signal_list_resource = SubResource("Resource_psu1o")
+_signal_list = Array[String](["IdleStart", "WalkStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Space", "Walk", "Jump", "VelocityReset", "IsOnFloor", "IsFalling"])
+
+[node name="Idle" type="Node" parent="Brain"]
+script = ExtResource("4_7lm1b")
+start_state_on = SubResource("Resource_imtxd")
+raise_on_start = SubResource("Resource_y12gs")
+raise_on_listen = SubResource("Resource_gypa8")
+
+[node name="Walk" type="Node" parent="Brain"]
+script = ExtResource("4_7lm1b")
+start_state_on = SubResource("Resource_jh8mn")
+raise_on_listen = SubResource("Resource_ub0tx")
+
+[node name="Jump" type="Node" parent="Brain"]
+script = ExtResource("4_7lm1b")
+start_state_on = SubResource("Resource_uewgg")
+raise_on_start = SubResource("Resource_wpeah")
+raise_on_listen = SubResource("Resource_q32g0")
+
+[node name="Fall" type="Node" parent="Brain"]
+script = ExtResource("4_7lm1b")
+start_state_on = SubResource("Resource_q2in3")
+raise_on_listen = SubResource("Resource_s7s5l")
+
+[node name="InputManager" type="Node" parent="Brain"]
+script = ExtResource("9_qde8j")
+_physics_process_pressed = SubResource("Resource_3n648")
+_physics_process_just_pressed = SubResource("Resource_i5n5h")
+_physics_process_released = SubResource("Resource_yxcpg")
