@@ -1,0 +1,65 @@
+[gd_scene load_steps=17 format=3 uid="uid://dgcp4gxp600yn"]
+
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/example/coin.gd" id="1_13rjv"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/brain.gd" id="1_pq3gf"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/signal_list.gd" id="2_5w743"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_child.gd" id="2_07i3b"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender.gd" id="3_bjxjf"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker.gd" id="4_p7v0u"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender_picker/sender_picker_classes/sender_picker.gd" id="5_hy0l1"]
+
+[sub_resource type="Resource" id="Resource_aaos5"]
+script = ExtResource("2_07i3b")
+signal_name = "Touched"
+
+[sub_resource type="Resource" id="Resource_phxbu"]
+script = ExtResource("2_07i3b")
+signal_name = "Picked"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v4ljf"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_utuuo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ee4jn"]
+
+[sub_resource type="Resource" id="Resource_qfay1"]
+script = ExtResource("2_5w743")
+signal_list = Array[String](["Touched", "Picked"])
+
+[sub_resource type="Resource" id="Resource_g84lk"]
+script = ExtResource("4_p7v0u")
+signal_name = "Touched"
+
+[sub_resource type="Resource" id="Resource_6v06f"]
+script = ExtResource("4_p7v0u")
+signal_name = "Picked"
+
+[sub_resource type="Resource" id="Resource_totku"]
+script = ExtResource("5_hy0l1")
+sender_name = "Coin"
+
+[node name="Coin" type="Area3D"]
+script = ExtResource("1_13rjv")
+TouchedSignal = SubResource("Resource_aaos5")
+PickedSignal = SubResource("Resource_phxbu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_v4ljf")
+mesh = SubResource("BoxMesh_utuuo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ee4jn")
+
+[node name="Brain" type="Node" parent="."]
+script = ExtResource("1_pq3gf")
+signal_list_resource = SubResource("Resource_qfay1")
+_signal_list = Array[String](["Touched", "Picked"])
+
+[node name="Sender" type="Node" parent="Brain"]
+script = ExtResource("3_bjxjf")
+send_signal = SubResource("Resource_g84lk")
+received_signal = SubResource("Resource_6v06f")
+sender_type = SubResource("Resource_totku")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

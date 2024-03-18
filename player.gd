@@ -11,6 +11,8 @@ extends CharacterBody3D
 @export var MoveSignal:SignalPickerChild
 @export var JumpSignal:SignalPickerChild
 @export var VelocityResetSignal:SignalPickerChild
+@export var PickedCoinSignal:SignalPickerChild
+@export var PickedDiamondSignal:SignalPickerChild
 
 @onready var _brain:Brain = $Brain
 
@@ -25,6 +27,18 @@ func _ready():
 		_brain.connect(JumpSignal.signal_name, jump)
 	if VelocityResetSignal:
 		_brain.connect(VelocityResetSignal.signal_name, velocity_reset)
+	if PickedCoinSignal:
+		_brain.connect(PickedCoinSignal.signal_name, pick_coin)
+	if PickedDiamondSignal:
+		_brain.connect(PickedDiamondSignal.signal_name, pick_diamond)
+		
+func pick_diamond(data):
+	print("Diamond Picked Up!")
+	data["receiver"].received(data)
+
+func pick_coin(data):
+	print("Coin Picked Up!")
+	data["receiver"].received(data)
 
 func velocity_reset(_data):
 	velocity.x = 0.0

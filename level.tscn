@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4pi4jud64mdl"]
+[gd_scene load_steps=9 format=3 uid="uid://c4pi4jud64mdl"]
 
 [ext_resource type="PackedScene" uid="uid://dd62ysjuqqq3i" path="res://addons/reuse_logic_nexus/example/player.tscn" id="1_oem5d"]
+[ext_resource type="PackedScene" uid="uid://dgcp4gxp600yn" path="res://addons/reuse_logic_nexus/example/coin.tscn" id="2_pihvb"]
+[ext_resource type="PackedScene" uid="uid://2pttxpl2cgvp" path="res://addons/reuse_logic_nexus/example/diamond.tscn" id="3_ia7v5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0rwss"]
 size = Vector3(50, 1, 50)
@@ -21,6 +23,7 @@ size = Vector3(50, 1, 50)
 [node name="Level" type="Node3D"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.4927, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_0rwss")
@@ -30,8 +33,29 @@ material_override = SubResource("StandardMaterial3D_b0vo2")
 mesh = SubResource("BoxMesh_yh5e4")
 
 [node name="Player" parent="." instance=ExtResource("1_oem5d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.49692, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64197, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.888441, 0.341375, -0.306815, -0.0365071, 0.718895, 0.694159, 0.457537, -0.605519, 0.651158, 0, 12.3852, 13.4149)
 shadow_enabled = true
+
+[node name="Coin" parent="." instance=ExtResource("2_pihvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.690592, -15.9308)
+
+[node name="Coin2" parent="." instance=ExtResource("2_pihvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0516, -0.690592, -15.9308)
+
+[node name="Coin3" parent="." instance=ExtResource("2_pihvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.479, -0.690592, -15.9308)
+
+[node name="Diamond" parent="." instance=ExtResource("3_ia7v5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.707494, -12.3352)
+
+[node name="Diamond2" parent="." instance=ExtResource("3_ia7v5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.28987, 2.55894, -12.3352)
+
+[node name="Diamond3" parent="." instance=ExtResource("3_ia7v5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.175, 0.950669, -12.3352)
+
+[node name="Diamond4" parent="." instance=ExtResource("3_ia7v5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8563, 0.950669, -12.3352)

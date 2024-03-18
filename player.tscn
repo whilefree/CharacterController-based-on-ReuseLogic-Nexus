@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://dd62ysjuqqq3i"]
+[gd_scene load_steps=120 format=3 uid="uid://dd62ysjuqqq3i"]
 
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/example/player.gd" id="1_627kw"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/brain.gd" id="2_whi2i"]
@@ -16,6 +16,9 @@
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/state_picker/state_picker_classes/state_hub_array.gd" id="11_ralag"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/state_picker/state_picker_classes/brain_state_picker.gd" id="12_m0md1"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/state_picker/state_picker_classes/state_hub.gd" id="13_g7u8m"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/receiver.gd" id="17_efm5w"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender_picker/sender_picker_classes/sender_signal_picker_array.gd" id="18_ofj5x"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender_picker/sender_picker_classes/sender_signal_picker.gd" id="19_fpbqy"]
 
 [sub_resource type="Resource" id="Resource_nsdem"]
 script = ExtResource("2_x65pr")
@@ -37,6 +40,14 @@ signal_name = "Jump"
 script = ExtResource("2_x65pr")
 signal_name = "VelocityReset"
 
+[sub_resource type="Resource" id="Resource_7l26r"]
+script = ExtResource("2_x65pr")
+signal_name = "PickedCoin"
+
+[sub_resource type="Resource" id="Resource_4nyte"]
+script = ExtResource("2_x65pr")
+signal_name = "PickedDiamond"
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b21j0"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qkbtx"]
@@ -45,9 +56,9 @@ signal_name = "VelocityReset"
 script = ExtResource("3_rqqms")
 state_name = "Idle"
 
-[sub_resource type="Resource" id="Resource_1ypgn"]
+[sub_resource type="Resource" id="Resource_attoy"]
 script = ExtResource("3_biyte")
-signal_list = Array[String](["IdleStart", "WalkStart", "RunStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Shift", "Shift_Released", "Space", "Move", "Jump", "VelocityReset", "IsOnFloor", "IsFalling"])
+signal_list = Array[String](["IdleStart", "WalkStart", "RunStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Shift", "Shift_Released", "Space", "Move", "Jump", "VelocityReset", "IsOnFloor", "IsFalling", "PickedCoin", "PickedDiamond", "TouchedDiamond"])
 
 [sub_resource type="Resource" id="Resource_imtxd"]
 script = ExtResource("5_slca2")
@@ -292,9 +303,22 @@ script = ExtResource("7_f4wef")
 signal_to_listen = SubResource("Resource_edvea")
 signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_h7wr7")])
 
+[sub_resource type="Resource" id="Resource_i5w8m"]
+script = ExtResource("5_slca2")
+signal_name = "TouchedDiamond"
+
+[sub_resource type="Resource" id="Resource_rhn1u"]
+script = ExtResource("5_slca2")
+signal_name = "PickedDiamond"
+
+[sub_resource type="Resource" id="Resource_537d7"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_i5w8m")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_rhn1u")])
+
 [sub_resource type="Resource" id="Resource_q32g0"]
 script = ExtResource("6_wdbqy")
-signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_ncd11")])
+signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_ncd11"), SubResource("Resource_537d7")])
 
 [sub_resource type="Resource" id="Resource_d3uy8"]
 script = ExtResource("5_slca2")
@@ -317,9 +341,22 @@ script = ExtResource("7_f4wef")
 signal_to_listen = SubResource("Resource_uj7oa")
 signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_0out3")])
 
+[sub_resource type="Resource" id="Resource_fd1km"]
+script = ExtResource("5_slca2")
+signal_name = "TouchedDiamond"
+
+[sub_resource type="Resource" id="Resource_jrrtg"]
+script = ExtResource("5_slca2")
+signal_name = "PickedDiamond"
+
+[sub_resource type="Resource" id="Resource_3hn6p"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_fd1km")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_jrrtg")])
+
 [sub_resource type="Resource" id="Resource_3me8x"]
 script = ExtResource("6_wdbqy")
-signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_hcbjw")])
+signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_hcbjw"), SubResource("Resource_3hn6p")])
 
 [sub_resource type="Resource" id="Resource_q2in3"]
 script = ExtResource("5_slca2")
@@ -338,9 +375,22 @@ script = ExtResource("7_f4wef")
 signal_to_listen = SubResource("Resource_xtfad")
 signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_gst57")])
 
+[sub_resource type="Resource" id="Resource_id2lj"]
+script = ExtResource("5_slca2")
+signal_name = "TouchedDiamond"
+
+[sub_resource type="Resource" id="Resource_7tlxj"]
+script = ExtResource("5_slca2")
+signal_name = "PickedDiamond"
+
+[sub_resource type="Resource" id="Resource_lcxhw"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_id2lj")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_7tlxj")])
+
 [sub_resource type="Resource" id="Resource_s7s5l"]
 script = ExtResource("6_wdbqy")
-signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_wx2be")])
+signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_wx2be"), SubResource("Resource_lcxhw")])
 
 [sub_resource type="Resource" id="Resource_y8460"]
 script = ExtResource("10_p7y0c")
@@ -379,6 +429,20 @@ action_name = "shift"
 script = ExtResource("11_q1law")
 action_emitters = Array[ExtResource("10_p7y0c")]([SubResource("Resource_ctdyd"), SubResource("Resource_eykmh")])
 
+[sub_resource type="Resource" id="Resource_60yab"]
+script = ExtResource("19_fpbqy")
+sender_name = "Coin"
+signal_name = "PickedCoin"
+
+[sub_resource type="Resource" id="Resource_lfl8p"]
+script = ExtResource("19_fpbqy")
+sender_name = "Diamond"
+signal_name = "TouchedDiamond"
+
+[sub_resource type="Resource" id="Resource_l545f"]
+script = ExtResource("18_ofj5x")
+sender_signal_pickers = Array[ExtResource("19_fpbqy")]([SubResource("Resource_60yab"), SubResource("Resource_lfl8p")])
+
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_627kw")
@@ -387,6 +451,8 @@ IsFallingSignal = SubResource("Resource_t0ajs")
 MoveSignal = SubResource("Resource_pqmd7")
 JumpSignal = SubResource("Resource_lbrco")
 VelocityResetSignal = SubResource("Resource_2hmya")
+PickedCoinSignal = SubResource("Resource_7l26r")
+PickedDiamondSignal = SubResource("Resource_4nyte")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_b21j0")
@@ -399,10 +465,9 @@ transform = Transform3D(1, 0, 0, 0, 0.978835, 0.20465, 0, -0.20465, 0.978835, 0,
 
 [node name="Brain" type="Node" parent="."]
 script = ExtResource("2_whi2i")
-debug = true
 initial_state = SubResource("Resource_10hpg")
-signal_list_resource = SubResource("Resource_1ypgn")
-_signal_list = Array[String](["IdleStart", "WalkStart", "RunStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Shift", "Shift_Released", "Space", "Move", "Jump", "VelocityReset", "IsOnFloor", "IsFalling"])
+signal_list_resource = SubResource("Resource_attoy")
+_signal_list = Array[String](["IdleStart", "WalkStart", "RunStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Shift", "Shift_Released", "Space", "Move", "Jump", "VelocityReset", "IsOnFloor", "IsFalling", "PickedCoin", "PickedDiamond", "TouchedDiamond"])
 
 [node name="Idle" type="Node" parent="Brain"]
 script = ExtResource("4_7lm1b")
@@ -442,3 +507,8 @@ script = ExtResource("9_qde8j")
 _physics_process_pressed = SubResource("Resource_3n648")
 _physics_process_just_pressed = SubResource("Resource_i5n5h")
 _physics_process_released = SubResource("Resource_yxcpg")
+
+[node name="Receiver" type="Node" parent="Brain"]
+script = ExtResource("17_efm5w")
+debug = true
+sender_list = SubResource("Resource_l545f")
