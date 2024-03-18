@@ -13,7 +13,7 @@ https://www.youtube.com/playlist?list=PLfOCVzuzqIWiPY5Rh8GpzP_DyLA3--cvg
 
 Download link for the addon:
 
-https://www.dropbox.com/scl/fi/lxiija70ios12mb3kco9e/reuse_logic_nexus_preview_edition_01.zip?rlkey=d4xboqhofbqi3pkb9nyq0lqjg&dl=0
+https://github.com/whilefree/ReuseLogic-Nexus
 
 Support me by watching the videos, subscribing to my channel, reporting any bugs, and sharing your wisdom with me at my YouTube channel:
 
