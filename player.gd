@@ -1,14 +1,14 @@
 extends CharacterBody3D
 
-
 @export var _speed = 8.0
+@export var _run_speed = 14.0
 @export var _jump_velocity = 5.0
 @export var _mouse_sensitivity = 0.001
 
 @export_group("Signals")
 @export var IsOnFloorSignal:SignalPickerChild
 @export var IsFallingSignal:SignalPickerChild
-@export var WalkSignal:SignalPickerChild
+@export var MoveSignal:SignalPickerChild
 @export var JumpSignal:SignalPickerChild
 @export var VelocityResetSignal:SignalPickerChild
 
@@ -19,8 +19,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	if WalkSignal:
-		_brain.connect(WalkSignal.signal_name, walk)
+	if MoveSignal:
+		_brain.connect(MoveSignal.signal_name, move)
 	if JumpSignal:
 		_brain.connect(JumpSignal.signal_name, jump)
 	if VelocityResetSignal:
@@ -30,15 +30,22 @@ func velocity_reset(_data):
 	velocity.x = 0.0
 	velocity.z = 0.0
 
-func walk(_data):
+func move(_data):
 	var input_dir = Input.get_vector("left", "right", "up", "down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * _speed
-		velocity.z = direction.z * _speed
+		if _data["current_state"].name == "Walk":
+			velocity.x = direction.x * _speed
+			velocity.z = direction.z * _speed
+		elif _data["current_state"].name == "Run":
+			velocity.x = direction.x * _run_speed
+			velocity.z = direction.z * _run_speed
 
 func jump(_data):
-	velocity.y = _jump_velocity
+	if _data["current_state"].name == "Jump":
+		velocity.y = _jump_velocity
+	elif _data["current_state"].name == "RunJump":
+		velocity.y = _jump_velocity+_jump_velocity/2
 
 func _physics_process(delta):
 	if is_on_floor() && IsOnFloorSignal:

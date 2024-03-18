@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://dd62ysjuqqq3i"]
+[gd_scene load_steps=103 format=3 uid="uid://dd62ysjuqqq3i"]
 
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/example/player.gd" id="1_627kw"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/brain.gd" id="2_whi2i"]
@@ -13,6 +13,9 @@
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/input_manager.gd" id="9_qde8j"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/action_emitter/action_emitter_classes/action_emitter.gd" id="10_p7y0c"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/action_emitter/action_emitter_classes/action_emitter_array.gd" id="11_q1law"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/state_picker/state_picker_classes/state_hub_array.gd" id="11_ralag"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/state_picker/state_picker_classes/brain_state_picker.gd" id="12_m0md1"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/state_picker/state_picker_classes/state_hub.gd" id="13_g7u8m"]
 
 [sub_resource type="Resource" id="Resource_nsdem"]
 script = ExtResource("2_x65pr")
@@ -22,9 +25,9 @@ signal_name = "IsOnFloor"
 script = ExtResource("2_x65pr")
 signal_name = "IsFalling"
 
-[sub_resource type="Resource" id="Resource_1hlhj"]
+[sub_resource type="Resource" id="Resource_pqmd7"]
 script = ExtResource("2_x65pr")
-signal_name = "Walk"
+signal_name = "Move"
 
 [sub_resource type="Resource" id="Resource_lbrco"]
 script = ExtResource("2_x65pr")
@@ -42,9 +45,9 @@ signal_name = "VelocityReset"
 script = ExtResource("3_rqqms")
 state_name = "Idle"
 
-[sub_resource type="Resource" id="Resource_psu1o"]
+[sub_resource type="Resource" id="Resource_1ypgn"]
 script = ExtResource("3_biyte")
-signal_list = Array[String](["IdleStart", "WalkStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Space", "Walk", "Jump", "VelocityReset", "IsOnFloor", "IsFalling"])
+signal_list = Array[String](["IdleStart", "WalkStart", "RunStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Shift", "Shift_Released", "Space", "Move", "Jump", "VelocityReset", "IsOnFloor", "IsFalling"])
 
 [sub_resource type="Resource" id="Resource_imtxd"]
 script = ExtResource("5_slca2")
@@ -111,7 +114,7 @@ signal_name = "WASD"
 
 [sub_resource type="Resource" id="Resource_j4x5l"]
 script = ExtResource("5_slca2")
-signal_name = "Walk"
+signal_name = "Move"
 
 [sub_resource type="Resource" id="Resource_tu7ow"]
 script = ExtResource("7_f4wef")
@@ -157,9 +160,112 @@ script = ExtResource("7_f4wef")
 signal_to_listen = SubResource("Resource_txgqd")
 signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_fwes3")])
 
+[sub_resource type="Resource" id="Resource_6u2b8"]
+script = ExtResource("5_slca2")
+signal_name = "Shift"
+
+[sub_resource type="Resource" id="Resource_bt48x"]
+script = ExtResource("5_slca2")
+signal_name = "RunStart"
+
+[sub_resource type="Resource" id="Resource_mgl6k"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_6u2b8")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_bt48x")])
+
 [sub_resource type="Resource" id="Resource_ub0tx"]
 script = ExtResource("6_wdbqy")
-signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_tu7ow"), SubResource("Resource_j6ywr"), SubResource("Resource_ijvjo"), SubResource("Resource_uabng")])
+signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_tu7ow"), SubResource("Resource_j6ywr"), SubResource("Resource_ijvjo"), SubResource("Resource_uabng"), SubResource("Resource_mgl6k")])
+
+[sub_resource type="Resource" id="Resource_ud1r4"]
+script = ExtResource("5_slca2")
+signal_name = "RunStart"
+
+[sub_resource type="Resource" id="Resource_205ov"]
+script = ExtResource("5_slca2")
+signal_name = "WASD"
+
+[sub_resource type="Resource" id="Resource_jvvwg"]
+script = ExtResource("5_slca2")
+signal_name = "Move"
+
+[sub_resource type="Resource" id="Resource_bivy2"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_205ov")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_jvvwg")])
+
+[sub_resource type="Resource" id="Resource_aedrj"]
+script = ExtResource("5_slca2")
+signal_name = "WASD_Released"
+
+[sub_resource type="Resource" id="Resource_1exb8"]
+script = ExtResource("5_slca2")
+signal_name = "IdleStart"
+
+[sub_resource type="Resource" id="Resource_5dem4"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_aedrj")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_1exb8")])
+
+[sub_resource type="Resource" id="Resource_8d10r"]
+script = ExtResource("5_slca2")
+signal_name = "Space"
+
+[sub_resource type="Resource" id="Resource_vaqdj"]
+script = ExtResource("5_slca2")
+signal_name = "JumpStart"
+
+[sub_resource type="Resource" id="Resource_g4sms"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_8d10r")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_vaqdj")])
+
+[sub_resource type="Resource" id="Resource_12b8c"]
+script = ExtResource("5_slca2")
+signal_name = "Shift_Released"
+
+[sub_resource type="Resource" id="Resource_6qw5b"]
+script = ExtResource("5_slca2")
+signal_name = "WalkStart"
+
+[sub_resource type="Resource" id="Resource_jxjit"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_12b8c")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_6qw5b")])
+
+[sub_resource type="Resource" id="Resource_8gmed"]
+script = ExtResource("5_slca2")
+signal_name = "IsFalling"
+
+[sub_resource type="Resource" id="Resource_ndfx7"]
+script = ExtResource("5_slca2")
+signal_name = "FallStart"
+
+[sub_resource type="Resource" id="Resource_vk800"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_8gmed")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_ndfx7")])
+
+[sub_resource type="Resource" id="Resource_v75lm"]
+script = ExtResource("6_wdbqy")
+signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_bivy2"), SubResource("Resource_5dem4"), SubResource("Resource_g4sms"), SubResource("Resource_jxjit"), SubResource("Resource_vk800")])
+
+[sub_resource type="Resource" id="Resource_yufb4"]
+script = ExtResource("12_m0md1")
+state_name = "Run"
+
+[sub_resource type="Resource" id="Resource_tvrwn"]
+script = ExtResource("3_rqqms")
+state_name = "RunJump"
+
+[sub_resource type="Resource" id="Resource_d6q5x"]
+script = ExtResource("13_g7u8m")
+brain_state = SubResource("Resource_yufb4")
+direct_state = SubResource("Resource_tvrwn")
+
+[sub_resource type="Resource" id="Resource_q7kav"]
+script = ExtResource("11_ralag")
+state_hubs = Array[ExtResource("13_g7u8m")]([SubResource("Resource_d6q5x")])
 
 [sub_resource type="Resource" id="Resource_uewgg"]
 script = ExtResource("5_slca2")
@@ -190,6 +296,31 @@ signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_h7wr7")]
 script = ExtResource("6_wdbqy")
 signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_ncd11")])
 
+[sub_resource type="Resource" id="Resource_d3uy8"]
+script = ExtResource("5_slca2")
+signal_name = "Jump"
+
+[sub_resource type="Resource" id="Resource_382bv"]
+script = ExtResource("8_esaal")
+signal_pickers = Array[ExtResource("5_slca2")]([SubResource("Resource_d3uy8")])
+
+[sub_resource type="Resource" id="Resource_uj7oa"]
+script = ExtResource("5_slca2")
+signal_name = "IsFalling"
+
+[sub_resource type="Resource" id="Resource_0out3"]
+script = ExtResource("5_slca2")
+signal_name = "FallStart"
+
+[sub_resource type="Resource" id="Resource_hcbjw"]
+script = ExtResource("7_f4wef")
+signal_to_listen = SubResource("Resource_uj7oa")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_0out3")])
+
+[sub_resource type="Resource" id="Resource_3me8x"]
+script = ExtResource("6_wdbqy")
+signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_hcbjw")])
+
 [sub_resource type="Resource" id="Resource_q2in3"]
 script = ExtResource("5_slca2")
 signal_name = "FallStart"
@@ -216,9 +347,14 @@ script = ExtResource("10_p7y0c")
 signal_name = "WASD"
 action_name = "wasd"
 
+[sub_resource type="Resource" id="Resource_g8q1f"]
+script = ExtResource("10_p7y0c")
+signal_name = "Shift"
+action_name = "shift"
+
 [sub_resource type="Resource" id="Resource_3n648"]
 script = ExtResource("11_q1law")
-action_emitters = Array[ExtResource("10_p7y0c")]([SubResource("Resource_y8460")])
+action_emitters = Array[ExtResource("10_p7y0c")]([SubResource("Resource_y8460"), SubResource("Resource_g8q1f")])
 
 [sub_resource type="Resource" id="Resource_bvm2e"]
 script = ExtResource("10_p7y0c")
@@ -234,16 +370,21 @@ script = ExtResource("10_p7y0c")
 signal_name = "WASD_Released"
 action_name = "wasd"
 
+[sub_resource type="Resource" id="Resource_eykmh"]
+script = ExtResource("10_p7y0c")
+signal_name = "Shift_Released"
+action_name = "shift"
+
 [sub_resource type="Resource" id="Resource_yxcpg"]
 script = ExtResource("11_q1law")
-action_emitters = Array[ExtResource("10_p7y0c")]([SubResource("Resource_ctdyd")])
+action_emitters = Array[ExtResource("10_p7y0c")]([SubResource("Resource_ctdyd"), SubResource("Resource_eykmh")])
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_627kw")
 IsOnFloorSignal = SubResource("Resource_nsdem")
 IsFallingSignal = SubResource("Resource_t0ajs")
-WalkSignal = SubResource("Resource_1hlhj")
+MoveSignal = SubResource("Resource_pqmd7")
 JumpSignal = SubResource("Resource_lbrco")
 VelocityResetSignal = SubResource("Resource_2hmya")
 
@@ -260,8 +401,8 @@ transform = Transform3D(1, 0, 0, 0, 0.978835, 0.20465, 0, -0.20465, 0.978835, 0,
 script = ExtResource("2_whi2i")
 debug = true
 initial_state = SubResource("Resource_10hpg")
-signal_list_resource = SubResource("Resource_psu1o")
-_signal_list = Array[String](["IdleStart", "WalkStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Space", "Walk", "Jump", "VelocityReset", "IsOnFloor", "IsFalling"])
+signal_list_resource = SubResource("Resource_1ypgn")
+_signal_list = Array[String](["IdleStart", "WalkStart", "RunStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Shift", "Shift_Released", "Space", "Move", "Jump", "VelocityReset", "IsOnFloor", "IsFalling"])
 
 [node name="Idle" type="Node" parent="Brain"]
 script = ExtResource("4_7lm1b")
@@ -274,11 +415,22 @@ script = ExtResource("4_7lm1b")
 start_state_on = SubResource("Resource_jh8mn")
 raise_on_listen = SubResource("Resource_ub0tx")
 
+[node name="Run" type="Node" parent="Brain"]
+script = ExtResource("4_7lm1b")
+start_state_on = SubResource("Resource_ud1r4")
+raise_on_listen = SubResource("Resource_v75lm")
+
 [node name="Jump" type="Node" parent="Brain"]
 script = ExtResource("4_7lm1b")
+state_hub_list = SubResource("Resource_q7kav")
 start_state_on = SubResource("Resource_uewgg")
 raise_on_start = SubResource("Resource_wpeah")
 raise_on_listen = SubResource("Resource_q32g0")
+
+[node name="RunJump" type="Node" parent="Brain/Jump"]
+script = ExtResource("4_7lm1b")
+raise_on_start = SubResource("Resource_382bv")
+raise_on_listen = SubResource("Resource_3me8x")
 
 [node name="Fall" type="Node" parent="Brain"]
 script = ExtResource("4_7lm1b")
