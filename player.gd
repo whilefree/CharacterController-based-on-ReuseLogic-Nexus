@@ -21,16 +21,11 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	if MoveSignal:
-		_brain.connect(MoveSignal.signal_name, move)
-	if JumpSignal:
-		_brain.connect(JumpSignal.signal_name, jump)
-	if VelocityResetSignal:
-		_brain.connect(VelocityResetSignal.signal_name, velocity_reset)
-	if PickedCoinSignal:
-		_brain.connect(PickedCoinSignal.signal_name, pick_coin)
-	if PickedDiamondSignal:
-		_brain.connect(PickedDiamondSignal.signal_name, pick_diamond)
+	_brain.register_signal(MoveSignal, move)
+	_brain.register_signal(JumpSignal, jump)
+	_brain.register_signal(VelocityResetSignal, velocity_reset)
+	_brain.register_signal(PickedCoinSignal, pick_coin)
+	_brain.register_signal(PickedDiamondSignal, pick_diamond)
 		
 func pick_diamond(data):
 	print("Diamond Picked Up!")

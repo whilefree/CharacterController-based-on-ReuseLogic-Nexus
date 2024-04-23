@@ -1,0 +1,43 @@
+[gd_scene load_steps=13 format=3 uid="uid://bvm4qid8rv060"]
+
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/example/door.gd" id="1_iji74"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/brain.gd" id="2_8ybhn"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_child.gd" id="2_dofmp"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/signal_list.gd" id="3_1x88b"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/receiver.gd" id="4_qxgch"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender_picker/sender_picker_classes/sender_signal_picker_array.gd" id="5_ut8c6"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender_picker/sender_picker_classes/sender_signal_picker.gd" id="6_rnia8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0q2nb"]
+size = Vector3(2, 2, 0.2)
+
+[sub_resource type="Resource" id="Resource_a60i3"]
+script = ExtResource("2_dofmp")
+signal_name = "Toggle"
+
+[sub_resource type="Resource" id="Resource_o2dbu"]
+script = ExtResource("3_1x88b")
+signal_list = Array[String](["Toggle"])
+
+[sub_resource type="Resource" id="Resource_y3jey"]
+script = ExtResource("6_rnia8")
+sender_name = "Button"
+signal_name = "Toggle"
+
+[sub_resource type="Resource" id="Resource_wn6vj"]
+script = ExtResource("5_ut8c6")
+sender_signal_pickers = Array[ExtResource("6_rnia8")]([SubResource("Resource_y3jey")])
+
+[node name="Door" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_0q2nb")
+script = ExtResource("1_iji74")
+toggle_signal = SubResource("Resource_a60i3")
+
+[node name="Brain" type="Node" parent="."]
+script = ExtResource("2_8ybhn")
+signal_list_resource = SubResource("Resource_o2dbu")
+_signal_list = Array[String](["Toggle"])
+
+[node name="Receiver" type="Node" parent="Brain"]
+script = ExtResource("4_qxgch")
+sender_list = SubResource("Resource_wn6vj")

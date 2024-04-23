@@ -56,7 +56,7 @@ signal_name = "PickedDiamond"
 script = ExtResource("3_rqqms")
 state_name = "Idle"
 
-[sub_resource type="Resource" id="Resource_attoy"]
+[sub_resource type="Resource" id="Resource_mjdal"]
 script = ExtResource("3_biyte")
 signal_list = Array[String](["IdleStart", "WalkStart", "RunStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Shift", "Shift_Released", "Space", "Move", "Jump", "VelocityReset", "IsOnFloor", "IsFalling", "PickedCoin", "PickedDiamond", "TouchedDiamond"])
 
@@ -466,7 +466,7 @@ transform = Transform3D(1, 0, 0, 0, 0.978835, 0.20465, 0, -0.20465, 0.978835, 0,
 [node name="Brain" type="Node" parent="."]
 script = ExtResource("2_whi2i")
 initial_state = SubResource("Resource_10hpg")
-signal_list_resource = SubResource("Resource_attoy")
+signal_list_resource = SubResource("Resource_mjdal")
 _signal_list = Array[String](["IdleStart", "WalkStart", "RunStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Shift", "Shift_Released", "Space", "Move", "Jump", "VelocityReset", "IsOnFloor", "IsFalling", "PickedCoin", "PickedDiamond", "TouchedDiamond"])
 
 [node name="Idle" type="Node" parent="Brain"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://2pttxpl2cgvp"]
+[gd_scene load_steps=22 format=3 uid="uid://2pttxpl2cgvp"]
 
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/example/coin.gd" id="1_1nbjd"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_child.gd" id="2_bg12c"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender.gd" id="5_hwyw7"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker.gd" id="6_se24b"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender_picker/sender_picker_classes/sender_picker.gd" id="7_nrvcu"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/receiver.gd" id="8_gkcpa"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender_picker/sender_picker_classes/sender_signal_picker_array.gd" id="9_7qd4g"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender_picker/sender_picker_classes/sender_signal_picker.gd" id="10_xx4px"]
 
 [sub_resource type="Resource" id="Resource_aaos5"]
 script = ExtResource("2_bg12c")
@@ -23,7 +26,7 @@ albedo_color = Color(0, 1, 1, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k6rje"]
 
-[sub_resource type="Resource" id="Resource_1xrch"]
+[sub_resource type="Resource" id="Resource_k14i0"]
 script = ExtResource("4_pdiba")
 signal_list = Array[String](["Touched", "Picked"])
 
@@ -39,6 +42,15 @@ signal_name = "Picked"
 script = ExtResource("7_nrvcu")
 sender_name = "Diamond"
 
+[sub_resource type="Resource" id="Resource_k14n0"]
+script = ExtResource("10_xx4px")
+sender_name = "Button"
+signal_name = "Picked"
+
+[sub_resource type="Resource" id="Resource_aso25"]
+script = ExtResource("9_7qd4g")
+sender_signal_pickers = Array[ExtResource("10_xx4px")]([SubResource("Resource_k14n0")])
+
 [node name="Diamond" type="Area3D"]
 script = ExtResource("1_1nbjd")
 TouchedSignal = SubResource("Resource_aaos5")
@@ -53,7 +65,7 @@ shape = SubResource("SphereShape3D_k6rje")
 
 [node name="Brain" type="Node" parent="."]
 script = ExtResource("3_gugry")
-signal_list_resource = SubResource("Resource_1xrch")
+signal_list_resource = SubResource("Resource_k14i0")
 _signal_list = Array[String](["Touched", "Picked"])
 
 [node name="Sender" type="Node" parent="Brain"]
@@ -61,5 +73,9 @@ script = ExtResource("5_hwyw7")
 send_signal = SubResource("Resource_g84lk")
 received_signal = SubResource("Resource_6v06f")
 sender_type = SubResource("Resource_totku")
+
+[node name="Receiver" type="Node" parent="Brain"]
+script = ExtResource("8_gkcpa")
+sender_list = SubResource("Resource_aso25")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

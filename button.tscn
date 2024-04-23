@@ -1,0 +1,57 @@
+[gd_scene load_steps=15 format=3 uid="uid://bipd0vyrl4peh"]
+
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/example/button.gd" id="1_b12hy"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/brain.gd" id="1_gh10w"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_child.gd" id="2_fa35n"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/signal_list.gd" id="2_gkbec"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender.gd" id="3_4nu05"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker.gd" id="4_17g7d"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender_picker/sender_picker_classes/sender_picker.gd" id="5_fqgup"]
+
+[sub_resource type="Resource" id="Resource_6x0a2"]
+script = ExtResource("2_fa35n")
+signal_name = "Pressed"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jipyj"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5yfd7"]
+height = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_df2sx"]
+height = 0.2
+
+[sub_resource type="Resource" id="Resource_0lbwx"]
+script = ExtResource("2_gkbec")
+signal_list = Array[String](["Pressed"])
+
+[sub_resource type="Resource" id="Resource_r4i6o"]
+script = ExtResource("4_17g7d")
+signal_name = "Pressed"
+
+[sub_resource type="Resource" id="Resource_bbg6l"]
+script = ExtResource("5_fqgup")
+sender_name = "Button"
+
+[node name="Button" type="Area3D"]
+script = ExtResource("1_b12hy")
+pressed_signal = SubResource("Resource_6x0a2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_jipyj")
+mesh = SubResource("CylinderMesh_5yfd7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_df2sx")
+
+[node name="Brain" type="Node" parent="."]
+script = ExtResource("1_gh10w")
+signal_list_resource = SubResource("Resource_0lbwx")
+_signal_list = Array[String](["Pressed"])
+
+[node name="Sender" type="Node" parent="Brain"]
+script = ExtResource("3_4nu05")
+send_signal = SubResource("Resource_r4i6o")
+sender_type = SubResource("Resource_bbg6l")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
