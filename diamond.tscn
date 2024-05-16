@@ -1,8 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://2pttxpl2cgvp"]
+[gd_scene load_steps=31 format=3 uid="uid://2pttxpl2cgvp"]
 
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/example/coin.gd" id="1_1nbjd"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_child.gd" id="2_bg12c"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/brain.gd" id="3_gugry"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/state_picker/state_picker_classes/direct_state_picker.gd" id="4_bi5g7"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/signal_list.gd" id="4_pdiba"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender.gd" id="5_hwyw7"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker.gd" id="6_se24b"]
@@ -10,6 +11,9 @@
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/receiver.gd" id="8_gkcpa"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender_picker/sender_picker_classes/sender_signal_picker_array.gd" id="9_7qd4g"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/sender_system/sender_picker/sender_picker_classes/sender_signal_picker.gd" id="10_xx4px"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/brain_state.gd" id="15_acr64"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_group_array.gd" id="16_3ugqd"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_group.gd" id="17_hsqid"]
 
 [sub_resource type="Resource" id="Resource_aaos5"]
 script = ExtResource("2_bg12c")
@@ -26,9 +30,13 @@ albedo_color = Color(0, 1, 1, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k6rje"]
 
-[sub_resource type="Resource" id="Resource_k14i0"]
+[sub_resource type="Resource" id="Resource_ehp2m"]
+script = ExtResource("4_bi5g7")
+state_name = "BrainState"
+
+[sub_resource type="Resource" id="Resource_thtat"]
 script = ExtResource("4_pdiba")
-signal_list = Array[String](["Touched", "Picked"])
+signal_list = Array[String](["Touched", "Picked", "Informed", "Test"])
 
 [sub_resource type="Resource" id="Resource_g84lk"]
 script = ExtResource("6_se24b")
@@ -51,6 +59,25 @@ signal_name = "Picked"
 script = ExtResource("9_7qd4g")
 sender_signal_pickers = Array[ExtResource("10_xx4px")]([SubResource("Resource_k14n0")])
 
+[sub_resource type="Resource" id="Resource_5aacv"]
+script = ExtResource("6_se24b")
+signal_name = "Touched"
+
+[sub_resource type="Resource" id="Resource_ru7dk"]
+script = ExtResource("6_se24b")
+signal_name = "Informed"
+
+[sub_resource type="Resource" id="Resource_pouqy"]
+resource_local_to_scene = true
+script = ExtResource("17_hsqid")
+signal_to_listen = SubResource("Resource_5aacv")
+signals_to_raise = Array[ExtResource("6_se24b")]([SubResource("Resource_ru7dk")])
+
+[sub_resource type="Resource" id="Resource_h8xw0"]
+resource_local_to_scene = true
+script = ExtResource("16_3ugqd")
+fake_signal_groups = Array[ExtResource("17_hsqid")]([SubResource("Resource_pouqy")])
+
 [node name="Diamond" type="Area3D"]
 script = ExtResource("1_1nbjd")
 TouchedSignal = SubResource("Resource_aaos5")
@@ -65,8 +92,9 @@ shape = SubResource("SphereShape3D_k6rje")
 
 [node name="Brain" type="Node" parent="."]
 script = ExtResource("3_gugry")
-signal_list_resource = SubResource("Resource_k14i0")
-_signal_list = Array[String](["Touched", "Picked"])
+initial_state = SubResource("Resource_ehp2m")
+signal_list_resource = SubResource("Resource_thtat")
+_signal_list = Array[String](["Touched", "Picked", "Informed", "Test"])
 
 [node name="Sender" type="Node" parent="Brain"]
 script = ExtResource("5_hwyw7")
@@ -77,5 +105,9 @@ sender_type = SubResource("Resource_totku")
 [node name="Receiver" type="Node" parent="Brain"]
 script = ExtResource("8_gkcpa")
 sender_list = SubResource("Resource_aso25")
+
+[node name="BrainState" type="Node" parent="Brain"]
+script = ExtResource("15_acr64")
+raise_on_listen = SubResource("Resource_h8xw0")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

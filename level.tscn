@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://c4pi4jud64mdl"]
 
 [ext_resource type="PackedScene" uid="uid://dd62ysjuqqq3i" path="res://addons/reuse_logic_nexus/example/player.tscn" id="1_oem5d"]
+[ext_resource type="PackedScene" uid="uid://2pttxpl2cgvp" path="res://addons/reuse_logic_nexus/example/diamond.tscn" id="2_3ptgp"]
 [ext_resource type="PackedScene" uid="uid://dgcp4gxp600yn" path="res://addons/reuse_logic_nexus/example/coin.tscn" id="2_pihvb"]
-[ext_resource type="PackedScene" uid="uid://2pttxpl2cgvp" path="res://addons/reuse_logic_nexus/example/diamond.tscn" id="3_ia7v5"]
 [ext_resource type="PackedScene" uid="uid://bipd0vyrl4peh" path="res://addons/reuse_logic_nexus/example/button.tscn" id="4_8wn8i"]
 [ext_resource type="PackedScene" uid="uid://bvm4qid8rv060" path="res://addons/reuse_logic_nexus/example/door.tscn" id="5_yanvc"]
 
@@ -41,6 +41,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64197, 8.38181)
 transform = Transform3D(0.888441, 0.341375, -0.306815, -0.0365071, 0.718895, 0.694159, 0.457537, -0.605519, 0.651158, 0, 12.3852, 13.4149)
 shadow_enabled = true
 
+[node name="Diamond" parent="." instance=ExtResource("2_3ptgp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.86327)
+
+[node name="Diamond2" parent="." instance=ExtResource("2_3ptgp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.77782, 0.00309658, -8.37357)
+
+[node name="Diamond3" parent="." instance=ExtResource("2_3ptgp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.80256, 0.0309405, -8.36729)
+
 [node name="Coin" parent="." instance=ExtResource("2_pihvb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.690592, -15.9308)
 
@@ -50,25 +59,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0516, -0.690592, -15.9308
 [node name="Coin3" parent="." instance=ExtResource("2_pihvb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.479, -0.690592, -15.9308)
 
-[node name="Diamond" parent="." instance=ExtResource("3_ia7v5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.707494, -12.3352)
-
-[node name="Diamond2" parent="." instance=ExtResource("3_ia7v5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.28987, 2.55894, -12.3352)
-
-[node name="Diamond3" parent="." instance=ExtResource("3_ia7v5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.175, 0.950669, -12.3352)
-
-[node name="Diamond4" parent="." instance=ExtResource("3_ia7v5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8563, 0.950669, -12.3352)
-
 [node name="Button" parent="." node_paths=PackedStringArray("node_array") instance=ExtResource("4_8wn8i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.68783, -1.7721, -0.866376)
 node_array = [NodePath("../Door"), NodePath("../Door4")]
 
 [node name="Button2" parent="." node_paths=PackedStringArray("node_array") instance=ExtResource("4_8wn8i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1322, -1.7721, -0.866376)
-node_array = [NodePath("../Door2"), NodePath("../Door3"), NodePath("../Diamond2"), NodePath("../Diamond")]
+node_array = [NodePath("../Door2"), NodePath("../Door3")]
 
 [node name="Door" parent="." instance=ExtResource("5_yanvc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.15711, 0, -5.99015)

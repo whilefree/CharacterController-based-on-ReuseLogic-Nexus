@@ -1,11 +1,9 @@
 CharacterController based on ReuseLogic Nexus
 A Character Controller created based on the powerful OOP Solution for Godot 4.2: ReuseLogic Nexus
 
-Example 004:
+Example 005:
 
-This is the example character controller created in the tutorial #3 for my Godot 4.2 addon: ReuseLogic Nexus
-
-Link to video where this example is created: https://www.youtube.com/watch?v=4ow8jw8CW20
+This is the example character controller compatible with the v0.1.3-beta version of my Godot 4.2 addon: ReuseLogic Nexus
 
 This is the link to my YouTube Playlist where I upload and share my official tutorials for the ReuseLogic Nexus:
 

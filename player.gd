@@ -26,7 +26,7 @@ func _ready():
 	_brain.register_signal(VelocityResetSignal, velocity_reset)
 	_brain.register_signal(PickedCoinSignal, pick_coin)
 	_brain.register_signal(PickedDiamondSignal, pick_diamond)
-		
+
 func pick_diamond(data):
 	print("Diamond Picked Up!")
 	data["receiver"].received(data)

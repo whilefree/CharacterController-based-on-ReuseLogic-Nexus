@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/example/player.gd" id="1_627kw"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/brain.gd" id="2_whi2i"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_child.gd" id="2_x65pr"]
-[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/signal_list.gd" id="3_biyte"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/state_picker/state_picker_classes/direct_state_picker.gd" id="3_rqqms"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/brain_state.gd" id="4_7lm1b"]
+[ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/brain_system/signal_list.gd" id="5_avyq3"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker.gd" id="5_slca2"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_group_array.gd" id="6_wdbqy"]
 [ext_resource type="Script" path="res://addons/reuse_logic_nexus/modules/signal_picker/signal_picker_classes/signal_picker_group.gd" id="7_f4wef"]
@@ -56,8 +56,8 @@ signal_name = "PickedDiamond"
 script = ExtResource("3_rqqms")
 state_name = "Idle"
 
-[sub_resource type="Resource" id="Resource_mjdal"]
-script = ExtResource("3_biyte")
+[sub_resource type="Resource" id="Resource_fw7vk"]
+script = ExtResource("5_avyq3")
 signal_list = Array[String](["IdleStart", "WalkStart", "RunStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Shift", "Shift_Released", "Space", "Move", "Jump", "VelocityReset", "IsOnFloor", "IsFalling", "PickedCoin", "PickedDiamond", "TouchedDiamond"])
 
 [sub_resource type="Resource" id="Resource_imtxd"]
@@ -72,194 +72,210 @@ signal_name = "VelocityReset"
 script = ExtResource("8_esaal")
 signal_pickers = Array[ExtResource("5_slca2")]([SubResource("Resource_6hlmg")])
 
-[sub_resource type="Resource" id="Resource_xx88d"]
+[sub_resource type="Resource" id="Resource_rtn7j"]
 script = ExtResource("5_slca2")
 signal_name = "WASD"
 
-[sub_resource type="Resource" id="Resource_p042y"]
+[sub_resource type="Resource" id="Resource_4lyls"]
 script = ExtResource("5_slca2")
 signal_name = "WalkStart"
 
-[sub_resource type="Resource" id="Resource_f5do5"]
+[sub_resource type="Resource" id="Resource_j0jvm"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_xx88d")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_p042y")])
+signal_to_listen = SubResource("Resource_rtn7j")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_4lyls")])
 
-[sub_resource type="Resource" id="Resource_sdoel"]
+[sub_resource type="Resource" id="Resource_jrs8x"]
 script = ExtResource("5_slca2")
 signal_name = "Space"
 
-[sub_resource type="Resource" id="Resource_rxwef"]
+[sub_resource type="Resource" id="Resource_jr287"]
 script = ExtResource("5_slca2")
 signal_name = "JumpStart"
 
-[sub_resource type="Resource" id="Resource_w13o6"]
+[sub_resource type="Resource" id="Resource_0c2sp"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_sdoel")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_rxwef")])
+signal_to_listen = SubResource("Resource_jrs8x")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_jr287")])
 
-[sub_resource type="Resource" id="Resource_uv321"]
+[sub_resource type="Resource" id="Resource_fxm16"]
 script = ExtResource("5_slca2")
 signal_name = "IsFalling"
 
-[sub_resource type="Resource" id="Resource_o7gpr"]
+[sub_resource type="Resource" id="Resource_o46fj"]
 script = ExtResource("5_slca2")
 signal_name = "FallStart"
 
-[sub_resource type="Resource" id="Resource_vk42e"]
+[sub_resource type="Resource" id="Resource_vjyh0"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_uv321")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_o7gpr")])
+signal_to_listen = SubResource("Resource_fxm16")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_o46fj")])
 
-[sub_resource type="Resource" id="Resource_gypa8"]
+[sub_resource type="Resource" id="Resource_selxe"]
+resource_local_to_scene = true
 script = ExtResource("6_wdbqy")
-signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_f5do5"), SubResource("Resource_w13o6"), SubResource("Resource_vk42e")])
+fake_signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_j0jvm"), SubResource("Resource_0c2sp"), SubResource("Resource_vjyh0")])
 
 [sub_resource type="Resource" id="Resource_jh8mn"]
 script = ExtResource("5_slca2")
 signal_name = "WalkStart"
 
-[sub_resource type="Resource" id="Resource_q437l"]
+[sub_resource type="Resource" id="Resource_acq7l"]
 script = ExtResource("5_slca2")
 signal_name = "WASD"
 
-[sub_resource type="Resource" id="Resource_j4x5l"]
+[sub_resource type="Resource" id="Resource_3ii8o"]
 script = ExtResource("5_slca2")
 signal_name = "Move"
 
-[sub_resource type="Resource" id="Resource_tu7ow"]
+[sub_resource type="Resource" id="Resource_6l5hy"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_q437l")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_j4x5l")])
+signal_to_listen = SubResource("Resource_acq7l")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_3ii8o")])
 
-[sub_resource type="Resource" id="Resource_a6kg8"]
+[sub_resource type="Resource" id="Resource_qhrh8"]
 script = ExtResource("5_slca2")
 signal_name = "Space"
 
-[sub_resource type="Resource" id="Resource_53nt4"]
+[sub_resource type="Resource" id="Resource_0o46e"]
 script = ExtResource("5_slca2")
 signal_name = "JumpStart"
 
-[sub_resource type="Resource" id="Resource_j6ywr"]
+[sub_resource type="Resource" id="Resource_lctuu"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_a6kg8")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_53nt4")])
+signal_to_listen = SubResource("Resource_qhrh8")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_0o46e")])
 
-[sub_resource type="Resource" id="Resource_b7ero"]
+[sub_resource type="Resource" id="Resource_00e56"]
 script = ExtResource("5_slca2")
 signal_name = "WASD_Released"
 
-[sub_resource type="Resource" id="Resource_xqfva"]
+[sub_resource type="Resource" id="Resource_f0hbq"]
 script = ExtResource("5_slca2")
 signal_name = "IdleStart"
 
-[sub_resource type="Resource" id="Resource_ijvjo"]
+[sub_resource type="Resource" id="Resource_qqwol"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_b7ero")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_xqfva")])
+signal_to_listen = SubResource("Resource_00e56")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_f0hbq")])
 
-[sub_resource type="Resource" id="Resource_txgqd"]
+[sub_resource type="Resource" id="Resource_2qak4"]
 script = ExtResource("5_slca2")
 signal_name = "IsFalling"
 
-[sub_resource type="Resource" id="Resource_fwes3"]
+[sub_resource type="Resource" id="Resource_aoio1"]
 script = ExtResource("5_slca2")
 signal_name = "FallStart"
 
-[sub_resource type="Resource" id="Resource_uabng"]
+[sub_resource type="Resource" id="Resource_57twe"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_txgqd")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_fwes3")])
+signal_to_listen = SubResource("Resource_2qak4")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_aoio1")])
 
-[sub_resource type="Resource" id="Resource_6u2b8"]
+[sub_resource type="Resource" id="Resource_wnfbk"]
 script = ExtResource("5_slca2")
 signal_name = "Shift"
 
-[sub_resource type="Resource" id="Resource_bt48x"]
+[sub_resource type="Resource" id="Resource_gvye2"]
 script = ExtResource("5_slca2")
 signal_name = "RunStart"
 
-[sub_resource type="Resource" id="Resource_mgl6k"]
+[sub_resource type="Resource" id="Resource_fks7w"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_6u2b8")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_bt48x")])
+signal_to_listen = SubResource("Resource_wnfbk")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_gvye2")])
 
-[sub_resource type="Resource" id="Resource_ub0tx"]
+[sub_resource type="Resource" id="Resource_eagti"]
+resource_local_to_scene = true
 script = ExtResource("6_wdbqy")
-signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_tu7ow"), SubResource("Resource_j6ywr"), SubResource("Resource_ijvjo"), SubResource("Resource_uabng"), SubResource("Resource_mgl6k")])
+fake_signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_6l5hy"), SubResource("Resource_lctuu"), SubResource("Resource_qqwol"), SubResource("Resource_57twe"), SubResource("Resource_fks7w")])
 
-[sub_resource type="Resource" id="Resource_ud1r4"]
+[sub_resource type="Resource" id="Resource_veqo2"]
 script = ExtResource("5_slca2")
 signal_name = "RunStart"
 
-[sub_resource type="Resource" id="Resource_205ov"]
+[sub_resource type="Resource" id="Resource_mlikw"]
 script = ExtResource("5_slca2")
 signal_name = "WASD"
 
-[sub_resource type="Resource" id="Resource_jvvwg"]
+[sub_resource type="Resource" id="Resource_pkuff"]
 script = ExtResource("5_slca2")
 signal_name = "Move"
 
-[sub_resource type="Resource" id="Resource_bivy2"]
+[sub_resource type="Resource" id="Resource_fj2qx"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_205ov")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_jvvwg")])
+signal_to_listen = SubResource("Resource_mlikw")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_pkuff")])
 
-[sub_resource type="Resource" id="Resource_aedrj"]
+[sub_resource type="Resource" id="Resource_36kx7"]
 script = ExtResource("5_slca2")
 signal_name = "WASD_Released"
 
-[sub_resource type="Resource" id="Resource_1exb8"]
+[sub_resource type="Resource" id="Resource_bq56l"]
 script = ExtResource("5_slca2")
 signal_name = "IdleStart"
 
-[sub_resource type="Resource" id="Resource_5dem4"]
+[sub_resource type="Resource" id="Resource_6sepn"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_aedrj")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_1exb8")])
+signal_to_listen = SubResource("Resource_36kx7")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_bq56l")])
 
-[sub_resource type="Resource" id="Resource_8d10r"]
+[sub_resource type="Resource" id="Resource_lcn8x"]
 script = ExtResource("5_slca2")
 signal_name = "Space"
 
-[sub_resource type="Resource" id="Resource_vaqdj"]
+[sub_resource type="Resource" id="Resource_dgrnh"]
 script = ExtResource("5_slca2")
 signal_name = "JumpStart"
 
-[sub_resource type="Resource" id="Resource_g4sms"]
+[sub_resource type="Resource" id="Resource_cx35i"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_8d10r")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_vaqdj")])
+signal_to_listen = SubResource("Resource_lcn8x")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_dgrnh")])
 
-[sub_resource type="Resource" id="Resource_12b8c"]
+[sub_resource type="Resource" id="Resource_uqxmp"]
 script = ExtResource("5_slca2")
 signal_name = "Shift_Released"
 
-[sub_resource type="Resource" id="Resource_6qw5b"]
+[sub_resource type="Resource" id="Resource_1s801"]
 script = ExtResource("5_slca2")
 signal_name = "WalkStart"
 
-[sub_resource type="Resource" id="Resource_jxjit"]
+[sub_resource type="Resource" id="Resource_0ehdl"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_12b8c")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_6qw5b")])
+signal_to_listen = SubResource("Resource_uqxmp")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_1s801")])
 
-[sub_resource type="Resource" id="Resource_8gmed"]
+[sub_resource type="Resource" id="Resource_8f616"]
 script = ExtResource("5_slca2")
 signal_name = "IsFalling"
 
-[sub_resource type="Resource" id="Resource_ndfx7"]
+[sub_resource type="Resource" id="Resource_yr1d7"]
 script = ExtResource("5_slca2")
 signal_name = "FallStart"
 
-[sub_resource type="Resource" id="Resource_vk800"]
+[sub_resource type="Resource" id="Resource_j4hky"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_8gmed")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_ndfx7")])
+signal_to_listen = SubResource("Resource_8f616")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_yr1d7")])
 
-[sub_resource type="Resource" id="Resource_v75lm"]
+[sub_resource type="Resource" id="Resource_by24x"]
+resource_local_to_scene = true
 script = ExtResource("6_wdbqy")
-signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_bivy2"), SubResource("Resource_5dem4"), SubResource("Resource_g4sms"), SubResource("Resource_jxjit"), SubResource("Resource_vk800")])
+fake_signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_fj2qx"), SubResource("Resource_6sepn"), SubResource("Resource_cx35i"), SubResource("Resource_0ehdl"), SubResource("Resource_j4hky")])
 
 [sub_resource type="Resource" id="Resource_yufb4"]
 script = ExtResource("12_m0md1")
@@ -290,35 +306,38 @@ signal_name = "Jump"
 script = ExtResource("8_esaal")
 signal_pickers = Array[ExtResource("5_slca2")]([SubResource("Resource_fcdbm")])
 
-[sub_resource type="Resource" id="Resource_edvea"]
+[sub_resource type="Resource" id="Resource_046s3"]
 script = ExtResource("5_slca2")
 signal_name = "IsFalling"
 
-[sub_resource type="Resource" id="Resource_h7wr7"]
+[sub_resource type="Resource" id="Resource_m6xlr"]
 script = ExtResource("5_slca2")
 signal_name = "FallStart"
 
-[sub_resource type="Resource" id="Resource_ncd11"]
+[sub_resource type="Resource" id="Resource_usngi"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_edvea")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_h7wr7")])
+signal_to_listen = SubResource("Resource_046s3")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_m6xlr")])
 
-[sub_resource type="Resource" id="Resource_i5w8m"]
+[sub_resource type="Resource" id="Resource_bmn73"]
 script = ExtResource("5_slca2")
 signal_name = "TouchedDiamond"
 
-[sub_resource type="Resource" id="Resource_rhn1u"]
+[sub_resource type="Resource" id="Resource_ki2ig"]
 script = ExtResource("5_slca2")
 signal_name = "PickedDiamond"
 
-[sub_resource type="Resource" id="Resource_537d7"]
+[sub_resource type="Resource" id="Resource_3vnja"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_i5w8m")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_rhn1u")])
+signal_to_listen = SubResource("Resource_bmn73")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_ki2ig")])
 
-[sub_resource type="Resource" id="Resource_q32g0"]
+[sub_resource type="Resource" id="Resource_kbwut"]
+resource_local_to_scene = true
 script = ExtResource("6_wdbqy")
-signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_ncd11"), SubResource("Resource_537d7")])
+fake_signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_usngi"), SubResource("Resource_3vnja")])
 
 [sub_resource type="Resource" id="Resource_d3uy8"]
 script = ExtResource("5_slca2")
@@ -328,69 +347,75 @@ signal_name = "Jump"
 script = ExtResource("8_esaal")
 signal_pickers = Array[ExtResource("5_slca2")]([SubResource("Resource_d3uy8")])
 
-[sub_resource type="Resource" id="Resource_uj7oa"]
+[sub_resource type="Resource" id="Resource_krqe4"]
 script = ExtResource("5_slca2")
 signal_name = "IsFalling"
 
-[sub_resource type="Resource" id="Resource_0out3"]
+[sub_resource type="Resource" id="Resource_dbr2s"]
 script = ExtResource("5_slca2")
 signal_name = "FallStart"
 
-[sub_resource type="Resource" id="Resource_hcbjw"]
+[sub_resource type="Resource" id="Resource_1bjx4"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_uj7oa")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_0out3")])
+signal_to_listen = SubResource("Resource_krqe4")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_dbr2s")])
 
-[sub_resource type="Resource" id="Resource_fd1km"]
+[sub_resource type="Resource" id="Resource_kx20f"]
 script = ExtResource("5_slca2")
 signal_name = "TouchedDiamond"
 
-[sub_resource type="Resource" id="Resource_jrrtg"]
+[sub_resource type="Resource" id="Resource_ftah2"]
 script = ExtResource("5_slca2")
 signal_name = "PickedDiamond"
 
-[sub_resource type="Resource" id="Resource_3hn6p"]
+[sub_resource type="Resource" id="Resource_gni2y"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_fd1km")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_jrrtg")])
+signal_to_listen = SubResource("Resource_kx20f")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_ftah2")])
 
-[sub_resource type="Resource" id="Resource_3me8x"]
+[sub_resource type="Resource" id="Resource_y203n"]
+resource_local_to_scene = true
 script = ExtResource("6_wdbqy")
-signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_hcbjw"), SubResource("Resource_3hn6p")])
+fake_signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_1bjx4"), SubResource("Resource_gni2y")])
 
 [sub_resource type="Resource" id="Resource_q2in3"]
 script = ExtResource("5_slca2")
 signal_name = "FallStart"
 
-[sub_resource type="Resource" id="Resource_xtfad"]
+[sub_resource type="Resource" id="Resource_pr7sw"]
 script = ExtResource("5_slca2")
 signal_name = "IsOnFloor"
 
-[sub_resource type="Resource" id="Resource_gst57"]
+[sub_resource type="Resource" id="Resource_6okwm"]
 script = ExtResource("5_slca2")
 signal_name = "IdleStart"
 
-[sub_resource type="Resource" id="Resource_wx2be"]
+[sub_resource type="Resource" id="Resource_ng00k"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_xtfad")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_gst57")])
+signal_to_listen = SubResource("Resource_pr7sw")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_6okwm")])
 
-[sub_resource type="Resource" id="Resource_id2lj"]
+[sub_resource type="Resource" id="Resource_6xpug"]
 script = ExtResource("5_slca2")
 signal_name = "TouchedDiamond"
 
-[sub_resource type="Resource" id="Resource_7tlxj"]
+[sub_resource type="Resource" id="Resource_aa4dt"]
 script = ExtResource("5_slca2")
 signal_name = "PickedDiamond"
 
-[sub_resource type="Resource" id="Resource_lcxhw"]
+[sub_resource type="Resource" id="Resource_se7tm"]
+resource_local_to_scene = true
 script = ExtResource("7_f4wef")
-signal_to_listen = SubResource("Resource_id2lj")
-signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_7tlxj")])
+signal_to_listen = SubResource("Resource_6xpug")
+signals_to_raise = Array[ExtResource("5_slca2")]([SubResource("Resource_aa4dt")])
 
-[sub_resource type="Resource" id="Resource_s7s5l"]
+[sub_resource type="Resource" id="Resource_85qxq"]
+resource_local_to_scene = true
 script = ExtResource("6_wdbqy")
-signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_wx2be"), SubResource("Resource_lcxhw")])
+fake_signal_groups = Array[ExtResource("7_f4wef")]([SubResource("Resource_ng00k"), SubResource("Resource_se7tm")])
 
 [sub_resource type="Resource" id="Resource_y8460"]
 script = ExtResource("10_p7y0c")
@@ -466,41 +491,41 @@ transform = Transform3D(1, 0, 0, 0, 0.978835, 0.20465, 0, -0.20465, 0.978835, 0,
 [node name="Brain" type="Node" parent="."]
 script = ExtResource("2_whi2i")
 initial_state = SubResource("Resource_10hpg")
-signal_list_resource = SubResource("Resource_mjdal")
+signal_list_resource = SubResource("Resource_fw7vk")
 _signal_list = Array[String](["IdleStart", "WalkStart", "RunStart", "JumpStart", "FallStart", "WASD", "WASD_Released", "Shift", "Shift_Released", "Space", "Move", "Jump", "VelocityReset", "IsOnFloor", "IsFalling", "PickedCoin", "PickedDiamond", "TouchedDiamond"])
 
 [node name="Idle" type="Node" parent="Brain"]
 script = ExtResource("4_7lm1b")
 start_state_on = SubResource("Resource_imtxd")
 raise_on_start = SubResource("Resource_y12gs")
-raise_on_listen = SubResource("Resource_gypa8")
+raise_on_listen = SubResource("Resource_selxe")
 
 [node name="Walk" type="Node" parent="Brain"]
 script = ExtResource("4_7lm1b")
 start_state_on = SubResource("Resource_jh8mn")
-raise_on_listen = SubResource("Resource_ub0tx")
+raise_on_listen = SubResource("Resource_eagti")
 
 [node name="Run" type="Node" parent="Brain"]
 script = ExtResource("4_7lm1b")
-start_state_on = SubResource("Resource_ud1r4")
-raise_on_listen = SubResource("Resource_v75lm")
+start_state_on = SubResource("Resource_veqo2")
+raise_on_listen = SubResource("Resource_by24x")
 
 [node name="Jump" type="Node" parent="Brain"]
 script = ExtResource("4_7lm1b")
 state_hub_list = SubResource("Resource_q7kav")
 start_state_on = SubResource("Resource_uewgg")
 raise_on_start = SubResource("Resource_wpeah")
-raise_on_listen = SubResource("Resource_q32g0")
+raise_on_listen = SubResource("Resource_kbwut")
 
 [node name="RunJump" type="Node" parent="Brain/Jump"]
 script = ExtResource("4_7lm1b")
 raise_on_start = SubResource("Resource_382bv")
-raise_on_listen = SubResource("Resource_3me8x")
+raise_on_listen = SubResource("Resource_y203n")
 
 [node name="Fall" type="Node" parent="Brain"]
 script = ExtResource("4_7lm1b")
 start_state_on = SubResource("Resource_q2in3")
-raise_on_listen = SubResource("Resource_s7s5l")
+raise_on_listen = SubResource("Resource_85qxq")
 
 [node name="InputManager" type="Node" parent="Brain"]
 script = ExtResource("9_qde8j")
